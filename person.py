@@ -11,7 +11,7 @@ class Person(object):
         self._id = _id
         self.is_vaccinated = is_vaccinated
         self.is_alive = True
-        self.infected = infected
+        self.infected  = infected
         #self.virus = virus
 
     def did_survive_infection(self, mortality_rate):
