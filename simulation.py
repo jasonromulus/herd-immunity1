@@ -97,7 +97,6 @@ class Simulation(object):
         # Use the attributes created in the init method to create a population that has
         # the correct intial vaccination percentage and initial infected.
         # This method should be a loop and go all the way up to the self.pop_size and randomly assign characteristics to the people we create like vaccinated_option = random.choice(True,False)
-        pass
 
     def _simulation_should_continue(self):
         while self.pop_size > 0 or not self.vacc_percentage == 1:
@@ -106,25 +105,18 @@ class Simulation(object):
             return False
 
     def run(self):
-        # TODO: Finish this method.  This method should run the simulation until
-        # everyone in the simulation is dead, or the disease no longer exists in the
-        # population. To simplify the logic here, we will use the helper method
-        # _simulation_should_continue() to tell us whether or not we should continue
-        # the simulation and run at least 1 more time_step.
-
-        # This method should keep track of the number of time steps that
-        # have passed using the time_step_counter variable.  Make sure you remember to
-        # the logger's log_time_step() method at the end of each time step, pass in the
-        # time_step_counter variable!
+        self._create_population()
+        should_continue = self._simulation_should_continue()
         time_step_counter = 0
-        # TODO: Remember to set this variable to an intial call of
-        # self._simulation_should_continue()!
-        should_continue = None
-        while should_continue:
-            # TODO: for every iteration of this loop, call self.time_step() to compute another
-            # round of this simulation.
-            # print('The simulation has ended after {time_step_counter} turns.'.format(time_step_counter))
-            pass
+        while should_continue == True:
+            self.time_step()
+            time_step_counter += 1
+            should_continue = self._simulation_should_continue()
+
+        print("The simulation has ended after", step_counter, " turns.")
+        print("Total infected", self.total_infected, "Total Dead", self.total_dead)
+        print("Interactions where indvidual as safe from vacciation", self.vacc_int)
+
 
     def choose_infected(self):
         return random.choice(self.newly_infected)
