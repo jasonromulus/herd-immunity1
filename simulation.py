@@ -69,8 +69,8 @@ class Simulation(object):
         # Store the array that this method will return in the self.population attribute.
 
     def _create_population(self, initial_infected):
+        infected_count = 0
 
-    infected_count = 0
         while len(self.population) < self.population_size:
             id = len(self.population) + 1
             if infected_count < self.initial_infected:

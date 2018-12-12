@@ -4,7 +4,6 @@ from virus import Virus
 # TODO: Import the virus class
 
 
-
 class Person(object):
     ''' Person objects will populate the simulation. '''
 
@@ -16,13 +15,13 @@ class Person(object):
         should instantiate a Virus object and set it as the value
         self.infection. Otherwise, self.infection should be set to None.
         '''
-        self._id = None
+        self._id = _id
         self.is_alive = True  # Boolean
-        self.is_vaccinated = None  # Boolean
-        self.infection = None  # Virus or None
+        self.is_vaccinated = is_vaccinated  # Boolean
+        self.infection = infection  # Virus or None
 
     def did_survive_infection(self):
-         ''' Generate a random number and compare to virus's mortality_rate.
+        ''' Generate a random number and compare to virus's mortality_rate.
         If random number is smaller, person dies from the disease.
         If Person survives, they become vaccinated and they have no infection.
         '''
@@ -43,21 +42,27 @@ class Person(object):
 
 def test_vacc_person_instantiation():
     # create some people to test if our init method works as expected
-    person = Person(1, True)
+    
+    from virus import Virus
+    virus = Virus("Dysentery", 0.7, 0.2)
+    person = Person(1, True, virus )
 
     assert person._id == 1
     assert person.is_alive == True
     assert person.is_vaccinated == True
-    assert person.infection == False
+    assert person.infection == virus
 
 
 def test_not_vacc_person_instantiation():
-    person = Person(1, False)
+    
+    from virus import Virus
+    virus = Virus("Dysentery", 0.7, 0.2)
+    person = Person(1, False, virus)
 
     assert person._id == 1
     assert person.is_alive == True
     assert person.is_vaccinated == False
-    assert person.infection == False
+    assert person.infection == virus
     # the values at each attribute
 
 
@@ -71,6 +76,6 @@ def test_sick_person_instantiation():
     assert person._id == 1
     assert person.is_alive == True
     assert person.is_vaccinated == False
-    assert person.infection == True
+    assert person.infection == virus
     # the values at each attribute
     pass
