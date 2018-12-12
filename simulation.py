@@ -71,23 +71,26 @@ class Simulation(object):
         # Store the array that this method will return in the self.population attribute.
 
     def _create_population(self, initial_infected):
+        population = []
         infected_count = 0
 
-        while len(self.population) < self.pop_size:
-            id = len(self.population) + 1
+        while len(population) < self.pop_size:
+            id = len(population) + 1
             if infected_count < self.initial_infected:
 
                 new_person = Person(id, True, virus)
                 self.total_infected += 1
                 infected_count +=1
-                self.population.append(new_person)
+                population.append(new_person)
             else:
                 if random.random() > self.vacc_percentage:
                     new_person = Person(id, False, virus)
-                    self.population.append(new_person)
+                    population.append(new_person)
                 else:
                     new_person = Person(id, True, virus)
-                    self.population.append(new_person)
+                    population.append(new_person)
+
+        print(population)
 
         # return self.population
         # TODO: Finish this method!  This method should be called when the simulation
@@ -122,23 +125,23 @@ class Simulation(object):
     def choose_infected(self):
         return random.choice(self.newly_infected)
 
-    # Test later today in an index.py file
-    def time_step(self):
-        total_interactions = 0
-        # calling get_random_person method to randomly choose person from total population
-        rand_person = random.choice(self.population)
-        # looping through population to find infected person
-        for person in self.population:
-            if person.infection == virus:
-                # creates loop for sick person to interact with 100 randos
-                while total_interactions <= 100:
-                    # checking if rando is alive and calling interaction method
-                    if rand_person.is_alive:
-                        self.interaction(person, rand_person)
-                        total_interactions += 1
-                    else:
-                        # if they're dead the method starts over
-                        self.time_step()
+    # # Test later today in an index.py file
+    # def time_step(self):
+    #     total_interactions = 0
+    #     # calling get_random_person method to randomly choose person from total population
+    #     rand_person = random.choice(self.population)
+    #     # looping through population to find infected person
+    #     for person in self.population:
+    #         if person.infection == virus:
+    #             # creates loop for sick person to interact with 100 randos
+    #             while total_interactions <= 100:
+    #                 # checking if rando is alive and calling interaction method
+    #                 if rand_person.is_alive:
+    #                     self.interaction(person, rand_person)
+    #                     total_interactions += 1
+    #                 else:
+    #                     # if they're dead the method starts over
+    #                     self.time_step()
 
     def append_newly_infected(self, random_person):
         if random_person.is_vaccinated() == False:
