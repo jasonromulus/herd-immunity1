@@ -78,4 +78,4 @@ def test_sick_person_instantiation():
     assert person.is_vaccinated == False
     assert person.infection == virus
     # the values at each attribute
-    pass
+

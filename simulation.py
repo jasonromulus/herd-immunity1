@@ -92,8 +92,7 @@ class Simulation(object):
         # begins, to create the population that will be used. This method should return
         # an array filled with Person objects that matches the specifications of the
         # simulation (correct number of people in the population, correct percentage of
-        # people vaccinated, correct number of initially infected people).
-
+        # people vaccinated, correct number of initially infected people)
         # Use the attributes created in the init method to create a population that has
         # the correct intial vaccination percentage and initial infected.
         # This method should be a loop and go all the way up to the self.pop_size and randomly assign characteristics to the people we create like vaccinated_option = random.choice(True,False)
