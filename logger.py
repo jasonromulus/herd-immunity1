@@ -64,7 +64,7 @@ class Logger(object):
 
     def log_interaction(self, person1, person2, did_infect=None,
                         person2_vacc=None, person2_sick=None):
-        with self.open_file('a') as log:
+        with open(self.file_name, "w") as log:
             if did_infect:
                 log.write(f'{person1._id} infects {person2._id} \n')
             else:
@@ -86,13 +86,13 @@ class Logger(object):
         # on the format of the log.
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
-        with self.open_file('a') as log:
+        with open(self.file_name, "a") as log:
             if did_die_from_infection:
                 log.write(f'{person._id} died from infection')
             else:
                 log.write(f'{person._id} survived infection.')
 
     def log_time_step(self, time_step_number):
+        pass
         # TODO: Finish this method.  This method should log when a time step ends, and a
-        # new one begins.  See the documentation for more information on the format of the log.
-        
+        # new one begins.  See the documentation for more information on the format of the log. pass

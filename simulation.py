@@ -2,6 +2,7 @@ import random, sys
 random.seed(42)
 from person import Person
 from logger import Logger
+from virus import Virus
 
 class Simulation(object):
     '''
@@ -54,7 +55,7 @@ class Simulation(object):
 
     def __init__(self, pop_size, vacc_percentage, initial_infected=1, virus=None):
         self.logger = Logger("interactions.txt")
-        self.population = []  # List of Person objects
+        self.population = list()  # List of Person objects
         self.pop_size = pop_size  # Int
         self.next_person_id = 0
         self.virus = virus
@@ -65,26 +66,27 @@ class Simulation(object):
         self.vacc_percentage = vacc_percentage  # float between 0 and 1
         self.total_dead = 0  # Int
         self.newly_infected = []
+        self.population = self._create_population(initial_infected)
         # TODO: Call self._create_population() and pass in the correct parameters.
         # Store the array that this method will return in the self.population attribute.
 
     def _create_population(self, initial_infected):
         infected_count = 0
 
-        while len(self.population) < self.population_size:
+        while len(self.population) < self.pop_size:
             id = len(self.population) + 1
             if infected_count < self.initial_infected:
 
-                new_person = Person(id, False, True, virus)
+                new_person = Person(id, True, virus)
                 self.total_infected += 1
                 infected_count +=1
                 self.population.append(new_person)
             else:
-                if random.random() > self.vaccination_percentage:
-                    new_person = Person(id, False, False, virus)
+                if random.random() > self.vacc_percentage:
+                    new_person = Person(id, False, virus)
                     self.population.append(new_person)
                 else:
-                    new_person = Person(id, True, False, virus)
+                    new_person = Person(id, True, virus)
                     self.population.append(new_person)
 
         # return self.population
@@ -104,7 +106,7 @@ class Simulation(object):
             return False
 
     def run(self):
-        self._create_population()
+        self._create_population(initial_infected)
         should_continue = self._simulation_should_continue()
         time_step_counter = 0
         while should_continue == True:
@@ -189,7 +191,7 @@ if __name__ == "__main__":
     if len(params) == 6:
         initial_infected = int(params[5])
 
-    virus = Virus(virus_name, repro_num, mortality_rate)
+    virus = Virus(virus_name, basic_repro_num, mortality_rate)
     sim = Simulation(pop_size, vacc_percentage, initial_infected, virus)
 
     sim.run()
